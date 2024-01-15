@@ -1,28 +1,44 @@
-<!-- src/views/MateriaView.vue -->
 <template>
-  <div>
-    <h1>Lista de Materias de la Academia</h1>
-
-    <!-- Sección para consultar registros de Materia -->
     <div>
-      <h2>Consultar Materias</h2>
-      <!-- Aquí puedes colocar la lógica y la presentación para consultar materias -->
+      <h1>Materias de la Academia</h1>
+  
+      <!-- Botones para cambiar entre secciones -->
+      <div>
+        <button @click="showList = true">Consultar Lista de Materias</button>
+        <button @click="showList = false">Agregar Materia Nueva</button>
+      </div>
+  
+      <!-- Sección para consultar la lista de materias -->
+      <div>
+        <QueryMateria v-show="showList" />
+      </div>
+  
+      <!-- Sección para agregar una nueva materia -->
+      <div>
+        <NewMateria v-show="!showList" />
+      </div>
     </div>
-
-    <!-- Sección para agregar registros de Materia -->
-    <div>
-      <h2>Agregar Materia</h2>
-      <!-- Aquí puedes colocar la lógica y la presentación para agregar materias -->
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  // Lógica específica de MateriaView
-};
-</script>
-
-<style scoped>
-/* Estilos específicos de MateriaView */
-</style>
+  </template>
+  
+  <script>
+  import NewMateria from '../components/NewMateria.vue'; // Asegúrate de que la ruta sea correcta
+  import QueryMateria from '../components/QueryMateria.vue'; // Asegúrate de que la ruta sea correcta
+  
+  export default {
+    components: {
+      NewMateria,
+      QueryMateria,
+    },
+    data() {
+      return {
+        showList: true,
+      };
+    },
+    // Resto de tu lógica para MateriaView.vue
+  };
+  </script>
+  
+  <style>
+  /* Estilos para MateriaView.vue */
+  </style>
+  

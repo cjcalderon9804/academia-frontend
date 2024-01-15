@@ -1,26 +1,44 @@
-<!-- src/views/ProfesorView.vue -->
 <template>
-  <div>
-    <h1>Profesores de la Academia</h1>
     <div>
-      <h2>Consultar Lista de Profesores</h2>
-      <!-- Aquí puedes colocar la lógica y la presentación para consultar materias -->
+      <h1>Profesores de la Academia</h1>
+  
+      <!-- Botones para cambiar entre secciones -->
+      <div>
+        <button @click="showList = true">Consultar Lista de Profesores</button>
+        <button @click="showList = false">Agregar Profesor Nuevo</button>
+      </div>
+  
+      <!-- Sección para consultar la lista de profesores -->
+      <div>
+        <QueryProfesor v-show="showList" />
+      </div>
+  
+      <!-- Sección para agregar un nuevo profesor -->
+      <div>
+        <NewProfesor v-show="!showList" />
+      </div>
     </div>
-
-    <!-- Sección para agregar registros de Materia -->
-    <div>
-      <h2>Agregar Profesor Nuevo</h2>
-      <!-- Aquí puedes colocar la lógica y la presentación para agregar materias -->
-    </div>
-</div>
-</template>
-
-<script>
-export default {
-  // Lógica de la vista ProfesorView
-};
-</script>
-
-<style scoped>
-/* Estilos específicos de la vista ProfesorView */
-</style>
+  </template>
+  
+  <script>
+  import NewProfesor from '../components/NewProfesor.vue'; // Asegúrate de que la ruta sea correcta
+  import QueryProfesor from '../components/QueryProfesor.vue'; // Asegúrate de que la ruta sea correcta
+  
+  export default {
+    components: {
+      NewProfesor,
+      QueryProfesor,
+    },
+    data() {
+      return {
+        showList: true,
+      };
+    },
+    // Resto de tu lógica para ProfesorView.vue
+  };
+  </script>
+  
+  <style>
+  /* Estilos para ProfesorView.vue */
+  </style>
+  
