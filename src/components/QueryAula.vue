@@ -3,7 +3,7 @@
     <h1>Lista de Aulas de la Academia</h1>
     
     <!-- Se muestra la lista de aulas en una tabla -->
-    <table>
+    <table class="styled-table">
       <thead>
         <tr>
           <th>ID</th>
@@ -57,3 +57,22 @@ export default {
   },
 };
 </script>
+
+<style>
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: center;
+}
+
+.styled-table th, .styled-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.styled-table th {
+  background-color: #f2f2f2;
+}
+</style>
