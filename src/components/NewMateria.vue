@@ -2,7 +2,8 @@
   <div>
     <label for="materiaName">Ingrese el nombre de la materia:</label>
     <input type="text" id="materiaName" v-model="materiaName" />
-    <button @click="submitmateria">Guardar</button>
+    <button @click="submitMateria">Guardar</button>
+    <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -13,10 +14,11 @@ export default {
   data() {
     return {
       materiaName: '',
+      errorMessage: '', // Nuevo estado para almacenar mensajes de error
     };
   },
   methods: {
-    submitmateria() {
+    submitMateria() {
       // Verificar que el campo de nombre no esté vacío antes de enviar la solicitud
       if (!this.materiaName.trim()) {
         alert('Por favor, ingrese el nombre de la materia.');
@@ -33,8 +35,14 @@ export default {
           location.reload();
         })
         .catch(error => {
-          console.error('Error al agregar la materia:', error);
-          alert('Error al agregar la materia. Por favor, inténtelo de nuevo.');
+          // Capturar el mensaje de error del backend
+          if (error.response && error.response.data && error.response.data.error) {
+            this.errorMessage = error.response.data.error;
+          } else {
+            // Manejar otros tipos de errores
+            console.error('Error al agregar la materia:', error);
+            this.errorMessage = 'Error al agregar la materia. Por favor, inténtelo de nuevo.';
+          }
         });
     },
   },

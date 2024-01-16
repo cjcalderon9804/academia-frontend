@@ -3,6 +3,7 @@
     <label for="profesorName">Ingrese el nombre del profesor:</label>
     <input type="text" id="profesorName" v-model="profesorName" />
     <button @click="submitProfesor">Guardar</button>
+    <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ export default {
   data() {
     return {
       profesorName: '',
+      errorMessage: '', // Nuevo estado para almacenar mensajes de error
     };
   },
   methods: {
@@ -33,8 +35,13 @@ export default {
           location.reload();
         })
         .catch(error => {
-          console.error('Error al agregar el profesor:', error);
-          alert('Error al agregar el profesor. Por favor, inténtelo de nuevo.');
+          // Capturar el mensaje de error del backend
+          if (error.response && error.response.data && error.response.data.error) {
+            this.errorMessage = error.response.data.error;
+          } else {
+            console.error('Error al agregar el profesor:', error);
+            this.errorMessage = 'Error al agregar el profesor. Por favor, inténtelo de nuevo.';
+          }
         });
     },
   },

@@ -20,6 +20,7 @@
     </select>
 
     <button @click="submitAula">Guardar</button>
+    <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -34,21 +35,22 @@ export default {
       tema: '',
       profesor_id: null,
       materia_id: null,
-      profesores: [], // Almacena la lista de profesores
-      materias: [], // Almacena la lista de materias
+      profesores: [], // Para almacenar la lista de profesores
+      materias: [], // Para almacenar la lista de materias
+      errorMessage: '', // Nuevo estado para almacenar mensajes de error
     };
   },
   created() {
     console.log('Componente NewAula creado.');
 
-    // Llamar a la función para obtener la lista de profesores y materias al crear el componente
+    // Se llama a la función para obtener la lista de profesores y materias al crear el componente
     this.getProfesores();
     this.getMaterias();
   },
   methods: {
     // Función para obtener la lista de profesores
     getProfesores() {
-      axios.get('http://localhost:3000/profesores') // Ajusta la URL según tu configuración
+      axios.get('http://localhost:3000/profesores')
         .then(response => {
           this.profesores = response.data;
         })
@@ -59,7 +61,7 @@ export default {
 
     // Función para obtener la lista de materias
     getMaterias() {
-      axios.get('http://localhost:3000/materias') // Ajusta la URL según tu configuración
+      axios.get('http://localhost:3000/materias')
         .then(response => {
           this.materias = response.data;
         })
@@ -91,8 +93,13 @@ export default {
           location.reload();
         })
         .catch(error => {
-          console.error('Error al agregar el aula:', error);
-          alert('Error al agregar el aula. Por favor, inténtelo de nuevo.');
+          // Capturar el mensaje de error del backend
+          if (error.response && error.response.data && error.response.data.error) {
+            this.errorMessage = error.response.data.error;
+          } else {
+            console.error('Error al agregar el aula:', error);
+            this.errorMessage = 'Error al agregar el aula. Por favor, inténtelo de nuevo.';
+          }
         });
     },
   },
