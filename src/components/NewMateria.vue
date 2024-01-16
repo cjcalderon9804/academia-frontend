@@ -29,11 +29,8 @@ export default {
           // Mostrar el mensaje de éxito del servidor
           alert(response.data.message);
 
-          // Puedes realizar alguna acción adicional después de agregar el materia, si es necesario.
-          // Por ejemplo, redirigir a otra página, actualizar la lista de materias, etc.
-
-          // Reiniciar el campo después de enviarlo.
-          this.materiaName = '';
+          // Refrescar la página después del mensaje de éxito
+          location.reload();
         })
         .catch(error => {
           console.error('Error al agregar la materia:', error);

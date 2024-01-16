@@ -52,15 +52,8 @@ export default {
           // Mostrar el mensaje de éxito del servidor
           alert(response.data.message);
 
-          // Puedes realizar alguna acción adicional después de agregar el aula, si es necesario.
-          // Por ejemplo, redirigir a otra página, actualizar la lista de aulas, etc.
-
-          // Reiniciar los campos después de enviarlos.
-          this.fecha = '';
-          this.hora = '';
-          this.tema = '';
-          this.profesor_id = null;
-          this.materia_id = null;
+          // Refrescar la página después del mensaje de éxito
+          location.reload();
         })
         .catch(error => {
           console.error('Error al agregar el aula:', error);
