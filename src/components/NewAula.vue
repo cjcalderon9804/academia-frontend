@@ -9,11 +9,15 @@
     <label for="tema">Tema:</label>
     <input type="text" id="tema" v-model="tema" />
 
-    <label for="profesor_id">ID Profesor:</label>
-    <input type="number" id="profesor_id" v-model="profesor_id" />
+    <label for="profesor_id">Profesor:</label>
+    <select v-model="profesor_id">
+      <option v-for="profesor in profesores" :key="profesor.id" :value="profesor.id">{{ profesor.nombre }}</option>
+    </select>
 
-    <label for="materia_id">ID Materia:</label>
-    <input type="number" id="materia_id" v-model="materia_id" />
+    <label for="materia_id">Materia:</label>
+    <select v-model="materia_id">
+      <option v-for="materia in materias" :key="materia.id" :value="materia.id">{{ materia.nombre }}</option>
+    </select>
 
     <button @click="submitAula">Guardar</button>
   </div>
@@ -30,9 +34,40 @@ export default {
       tema: '',
       profesor_id: null,
       materia_id: null,
+      profesores: [], // Almacena la lista de profesores
+      materias: [], // Almacena la lista de materias
     };
   },
+  created() {
+    console.log('Componente NewAula creado.');
+
+    // Llamar a la función para obtener la lista de profesores y materias al crear el componente
+    this.getProfesores();
+    this.getMaterias();
+  },
   methods: {
+    // Función para obtener la lista de profesores
+    getProfesores() {
+      axios.get('http://localhost:3000/profesores') // Ajusta la URL según tu configuración
+        .then(response => {
+          this.profesores = response.data;
+        })
+        .catch(error => {
+          console.error('Error al obtener la lista de profesores:', error);
+        });
+    },
+
+    // Función para obtener la lista de materias
+    getMaterias() {
+      axios.get('http://localhost:3000/materias') // Ajusta la URL según tu configuración
+        .then(response => {
+          this.materias = response.data;
+        })
+        .catch(error => {
+          console.error('Error al obtener la lista de materias:', error);
+        });
+    },
+
     submitAula() {
       // Verificar que todos los campos estén completos antes de enviar la solicitud
       if (!this.fecha.trim() || !this.hora.trim() || !this.tema.trim() || !this.profesor_id || !this.materia_id) {
