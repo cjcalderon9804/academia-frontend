@@ -1,16 +1,51 @@
 <template>
-    <div>
-      <h1>Consulta de Profesor</h1>
-      <p>Este es un script placebo para evitar errores.</p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    // Puedes agregar aquí alguna lógica ficticia si es necesario
-    created() {
-      console.log('Componente QueryMateria creado.');
+  <div>
+    <h1>Lista de Profesores de la Academia</h1>
+    
+    <!-- Mostrar la lista de profesores en una tabla -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="profesor in profesores" :key="profesor.id">
+          <td>{{ profesor.id }}</td>
+          <td>{{ profesor.nombre }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      profesores: [], // Almacena la lista de profesores
+    };
+  },
+  created() {
+    console.log('Componente QueryProfesor creado.');
+    
+    // Llamar a la función para obtener la lista de profesores al crear el componente
+    this.getProfesores();
+  },
+  methods: {
+    // Función para obtener la lista de profesores utilizando Axios
+    getProfesores() {
+      axios.get('http://localhost:3000/profesores') // Ajusta la URL según tu configuración
+        .then(response => {
+          this.profesores = response.data;
+        })
+        .catch(error => {
+          console.error('Error al obtener la lista de profesores:', error);
+        });
     },
-  };
-  </script>
-  
+  },
+};
+</script>

@@ -6,6 +6,8 @@
         <router-link to="/profesor">Profesor</router-link>
         <router-link to="/materia">Materia</router-link>
         <router-link to="/aula">Aula</router-link>
+        <router-link to="/connection-test">Test_conect</router-link>
+
       </nav>
     </header>
 
