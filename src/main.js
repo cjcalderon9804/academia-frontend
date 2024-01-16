@@ -1,9 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import { createRouter, createWebHistory } from 'vue-router';  // Importa de esta manera
-import Axios from 'axios';
-
-Axios.defaults.baseURL = 'http://localhost:3000'
 
 import ProfesorView from './views/ProfesorView.vue';
 import MateriaView from './views/MateriaView.vue';
